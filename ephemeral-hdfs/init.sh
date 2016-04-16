@@ -18,7 +18,7 @@ case "$HADOOP_MAJOR_VERSION" in
     cp /root/hadoop-native/* /root/ephemeral-hdfs/lib/native/
     ;;
   2) 
-    wget http://s3.amazonaws.com/spark-related-packages/hadoop-2.0.0-cdh4.2.0.tar.gz  
+    wget http://a51-resources.s3.amazonaws.com/spark/hadoop/hadoop-cdh-prod.tar.gz
     echo "Unpacking Hadoop"
     tar xvzf hadoop-*.tar.gz > /tmp/spark-ec2_hadoop.log
     rm hadoop-*.tar.gz
@@ -30,7 +30,7 @@ case "$HADOOP_MAJOR_VERSION" in
     cp /root/hadoop-native/* /root/ephemeral-hdfs/lib/native/
     ;;
   yarn)
-    wget http://s3.amazonaws.com/spark-related-packages/hadoop-2.4.0.tar.gz
+    http://a51-resources.s3.amazonaws.com/spark/hadoop/hadoop-prod.tar.gz
     echo "Unpacking Hadoop"
     tar xvzf hadoop-*.tar.gz > /tmp/spark-ec2_hadoop.log
     rm hadoop-*.tar.gz
