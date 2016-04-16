@@ -18,7 +18,7 @@ case "$HADOOP_MAJOR_VERSION" in
     ;;
   2)
     wget http://a51-resources.s3.amazonaws.com/spark/hadoop/hadoop-cdh-prod.tar.gz
-    echo "Unpacking Hadoop"
+    echo "Unpacking Custom CDH Hadoop"
     tar xvzf hadoop-*.tar.gz > /tmp/spark-ec2_hadoop.log
     rm hadoop-*.tar.gz
     mv hadoop-2.*/ persistent-hdfs/
@@ -26,14 +26,13 @@ case "$HADOOP_MAJOR_VERSION" in
     # Have single conf dir
     rm -rf /root/persistent-hdfs/etc/hadoop/
     ln -s /root/persistent-hdfs/conf /root/persistent-hdfs/etc/hadoop
-    cp /root/hadoop-native/* /root/persistent-hdfs/lib/native/
     ;;
   yarn)
-    wget http://a51-resources.s3.amazonaws.com/spark/hadoop/hadoop-prod.tar.gz
-    echo "Unpacking Hadoop"
+    wget http://a51-resources.s3.amazonaws.com/spark/hadoop/hadoop-cdh-prod.tar.gz
+    echo "Unpacking Custom CDH Hadoop with Yarn"
     tar xvzf hadoop-*.tar.gz > /tmp/spark-ec2_hadoop.log
     rm hadoop-*.tar.gz
-    mv hadoop-*/ persistent-hdfs/
+    mv hadoop-2.*/ persistent-hdfs/
 
     # Have single conf dir
     rm -rf /root/persistent-hdfs/etc/hadoop/
