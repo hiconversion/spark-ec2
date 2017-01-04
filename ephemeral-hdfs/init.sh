@@ -18,23 +18,22 @@ case "$HADOOP_MAJOR_VERSION" in
     cp /root/hadoop-native/* /root/ephemeral-hdfs/lib/native/
     ;;
   2) 
-    wget http://s3.amazonaws.com/spark-related-packages/hadoop-2.0.0-cdh4.2.0.tar.gz  
-    echo "Unpacking Hadoop"
+    wget http://a51-resources.s3.amazonaws.com/spark/hadoop/hadoop-cdh-prod.tar.gz
+    echo "Unpacking Custom CDH Hadoop"
     tar xvzf hadoop-*.tar.gz > /tmp/spark-ec2_hadoop.log
     rm hadoop-*.tar.gz
-    mv hadoop-2.0.0-cdh4.2.0/ ephemeral-hdfs/
+    mv hadoop-2.*/ ephemeral-hdfs/
 
     # Have single conf dir
     rm -rf /root/ephemeral-hdfs/etc/hadoop/
     ln -s /root/ephemeral-hdfs/conf /root/ephemeral-hdfs/etc/hadoop
-    cp /root/hadoop-native/* /root/ephemeral-hdfs/lib/native/
     ;;
   yarn)
-    wget http://s3.amazonaws.com/spark-related-packages/hadoop-2.4.0.tar.gz
-    echo "Unpacking Hadoop"
+    wget http://a51-resources.s3.amazonaws.com/spark/hadoop/hadoop-cdh-prod.tar.gz
+    echo "Unpacking Custom CDH Hadoop with Yarn"
     tar xvzf hadoop-*.tar.gz > /tmp/spark-ec2_hadoop.log
     rm hadoop-*.tar.gz
-    mv hadoop-2.4.0/ ephemeral-hdfs/
+    mv hadoop-2.*/ ephemeral-hdfs/
 
     # Have single conf dir
     rm -rf /root/ephemeral-hdfs/etc/hadoop/
