@@ -37,6 +37,10 @@ case "$HADOOP_MAJOR_VERSION" in
     # Have single conf dir
     rm -rf /root/persistent-hdfs/etc/hadoop/
     ln -s /root/persistent-hdfs/conf /root/persistent-hdfs/etc/hadoop
+
+    # install 64 bit native libs (overwrite default useless 32 bit libs)
+    rm -f /root/persistent-hdfs/lib/native/*
+    cp /root/hadoop-native/* /root/persistent-hdfs/lib/native/
     ;;
 
   *)

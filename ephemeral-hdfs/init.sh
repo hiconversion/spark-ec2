@@ -38,6 +38,11 @@ case "$HADOOP_MAJOR_VERSION" in
     # Have single conf dir
     rm -rf /root/ephemeral-hdfs/etc/hadoop/
     ln -s /root/ephemeral-hdfs/conf /root/ephemeral-hdfs/etc/hadoop
+
+    # install 64 bit native libs (overwrite default useless 32 bit libs)
+    rm -f /root/ephemeral-hdfs/lib/native/*
+    cp /root/hadoop-native/* /root/ephemeral-hdfs/lib/native/
+
     ;;
 
   *)
