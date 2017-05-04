@@ -31,7 +31,7 @@ echo "SKIPPING mounting /mnt and /mnt2 for special (or any) instance types, sinc
 
 # Mount options to use for ext3 and xfs disks (the ephemeral disks
 # are ext3, but we use xfs for EBS volumes to format them faster)
-XFS_MOUNT_OPTS="defaults,noatime,nodiratime,allocsize=8m"
+XFS_MOUNT_OPTS="defaults,noatime,allocsize=8m"
 
 function setup_ebs_volume {
   device=$1
