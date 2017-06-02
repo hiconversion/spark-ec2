@@ -137,14 +137,17 @@ def setup_external_libs(libs):
         if not os.path.isdir(lib_dir):
             tgz_file_path = os.path.join(SPARK_EC2_LIB_DIR, versioned_lib_name + ".tar.gz")
             print(" - Downloading {lib}...".format(lib=lib["name"]))
-            download_stream = urlopen(
+
+            lib_url = lib.get("url",
                 "{prefix}/{first_letter}/{lib_name}/{lib_name}-{lib_version}.tar.gz".format(
                     prefix=PYPI_URL_PREFIX,
                     first_letter=lib["name"][:1],
                     lib_name=lib["name"],
-                    lib_version=lib["version"]
-                )
+                    lib_version=lib["version"])
             )
+            print(lib_url)
+
+            download_stream = urlopen(lib_url)
             with open(tgz_file_path, "wb") as tgz_file:
                 tgz_file.write(download_stream.read())
             with open(tgz_file_path, "rb") as tar:
@@ -163,8 +166,9 @@ def setup_external_libs(libs):
 external_libs = [
     {
         "name": "boto",
-        "version": "2.34.0",
-        "md5": "5556223d2d0cc4d06dd4829e671dcecd"
+        "version": "2.47.0",
+        "url": "https://pypi.python.org/packages/bc/ee/e674c01b10972765511705dc77b824b550646a30994cbc428087c4910ac3/boto-2.47.0.tar.gz#md5=c7ed986a6f369fe93f04ec62d16299ac",
+        "md5": "c7ed986a6f369fe93f04ec62d16299ac"
     }
 ]
 
