@@ -263,10 +263,10 @@ def parse_args():
         help="Resume installation on a previously launched cluster " +
              "(for debugging)")
     parser.add_option(
-        "--ebs-vol-size", metavar="SIZE", type="int", default=0,
+        "--ebs-vol-size", metavar="SIZE", type="int", default=200,
         help="Size (in GB) of each EBS volume.")
     parser.add_option(
-        "--ebs-vol-type", default="standard",
+        "--ebs-vol-type", default="gp2",
         help="EBS volume type (e.g. 'gp2', 'standard').")
     parser.add_option(
         "--ebs-vol-num", type="int", default=1,

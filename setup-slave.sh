@@ -28,6 +28,7 @@ instance_type=$(curl http://169.254.169.254/latest/meta-data/instance-type 2> /d
 echo "Setting up slave on `hostname`... of type $instance_type"
 
 echo "SKIPPING mounting /mnt and /mnt2 for special (or any) instance types, since we have our own image"
+echo "SETTING first EBS volume to /mnt and ADDING mounts to /etc/fstab"
 
 # Mount options to use for ext3 and xfs disks (the ephemeral disks
 # are ext3, but we use xfs for EBS volumes to format them faster)
@@ -44,6 +45,7 @@ function setup_ebs_volume {
       if mkfs.xfs -q $device; then
         mount -o $XFS_MOUNT_OPTS $device $mount_point
         chmod -R a+w $mount_point
+        echo "$device   $mount_point       xfs    $XFS_MOUNT_OPTS 0 0" >> /etc/fstab
       else
         # mkfs.xfs is not installed on this machine or has failed;
         # delete /vol so that the user doesn't think we successfully
@@ -62,7 +64,7 @@ function setup_ebs_volume {
 }
 
 # Format and mount EBS volume (/dev/sd[s, t, u, v, w, x, y, z]) as /vol[x] if the device exists
-setup_ebs_volume /dev/sds /vol0
+setup_ebs_volume /dev/sds /mnt
 setup_ebs_volume /dev/sdt /vol1
 setup_ebs_volume /dev/sdu /vol2
 setup_ebs_volume /dev/sdv /vol3
