@@ -1127,7 +1127,7 @@ def deploy_files(conn, root_dir, opts, master_nodes, slave_nodes, modules):
 
     if tachyon_v == "":
         print("No valid Tachyon version found; Tachyon won't be set up")
-        try
+        try:
             modules.remove("tachyon")
         except ValueError:
             pass  # ignore
