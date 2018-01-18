@@ -85,7 +85,8 @@ VALID_SPARK_VERSIONS = set([
     "2.0.2",
     "2.1.0",
     "2.1.1",
-    "2.2.0"
+    "2.2.0",
+    "2.2.1"
 ])
 
 SPARK_TACHYON_MAP = {
