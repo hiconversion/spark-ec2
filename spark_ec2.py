@@ -536,10 +536,12 @@ def launch_cluster(conn, opts, cluster_name):
         with open(opts.user_data) as user_data_file:
             user_data_content = user_data_file.read()
 
-    print("Setting up security groups...")
+    print("Setting up security groups... customized")
     master_group = get_or_make_group(conn, cluster_name + "-master", opts.vpc_id)
     slave_group = get_or_make_group(conn, cluster_name + "-slaves", opts.vpc_id)
     authorized_address = opts.authorized_address
+    ssh_string_group = 'ssh-strict-sg';
+
     if master_group.rules == []:  # Group was just now created
         if opts.vpc_id is None:
             master_group.authorize(src_group=master_group)
@@ -557,25 +559,25 @@ def launch_cluster(conn, opts, cluster_name):
                                    src_group=slave_group)
             master_group.authorize(ip_protocol='udp', from_port=0, to_port=65535,
                                    src_group=slave_group)
-        master_group.authorize('tcp', 22, 22, authorized_address)
-        master_group.authorize('tcp', 8080, 8081, authorized_address)
-        master_group.authorize('tcp', 18080, 18080, authorized_address)
-        master_group.authorize('tcp', 19999, 19999, authorized_address)
-        master_group.authorize('tcp', 50030, 50030, authorized_address)
-        master_group.authorize('tcp', 50070, 50070, authorized_address)
-        master_group.authorize('tcp', 60070, 60070, authorized_address)
-        master_group.authorize('tcp', 4040, 4045, authorized_address)
-        # Rstudio (GUI for R) needs port 8787 for web access
-        master_group.authorize('tcp', 8787, 8787, authorized_address)
-        # HDFS NFS gateway requires 111,2049,4242 for tcp & udp
-        master_group.authorize('tcp', 111, 111, authorized_address)
-        master_group.authorize('udp', 111, 111, authorized_address)
-        master_group.authorize('tcp', 2049, 2049, authorized_address)
-        master_group.authorize('udp', 2049, 2049, authorized_address)
-        master_group.authorize('tcp', 4242, 4242, authorized_address)
-        master_group.authorize('udp', 4242, 4242, authorized_address)
+        master_group.authorize('tcp', 22, 22, src_group=ssh_string_group)
+        master_group.authorize('tcp', 8080, 8081, authorized_address)       # spark master,worker ui
+        master_group.authorize('tcp', 18080, 18080, authorized_address)     # spark history ui
+        master_group.authorize('tcp', 19999, 19999, authorized_address)     # tachyon
+        master_group.authorize('tcp', 50030, 50030, authorized_address)     # mapred jobtracker
+        master_group.authorize('tcp', 50070, 50070, authorized_address)     # hdfs / dfs health
+        # master_group.authorize('tcp', 60070, 60070, authorized_address)     # ???
+        # master_group.authorize('tcp', 4040, 4045, authorized_address)       # ??? spark application running ui
+        ## Rstudio (GUI for R) needs port 8787 for web access
+        # master_group.authorize('tcp', 8787, 8787, authorized_address)
+        ## HDFS NFS gateway requires 111,2049,4242 for tcp & udp
+        # master_group.authorize('tcp', 111, 111, authorized_address)
+        # master_group.authorize('udp', 111, 111, authorized_address)
+        # master_group.authorize('tcp', 2049, 2049, authorized_address)
+        # master_group.authorize('udp', 2049, 2049, authorized_address)
+        # master_group.authorize('tcp', 4242, 4242, authorized_address)
+        # master_group.authorize('udp', 4242, 4242, authorized_address)
         # RM in YARN mode uses 8088
-        master_group.authorize('tcp', 8088, 8088, authorized_address)
+        master_group.authorize('tcp', 8088, 8088, authorized_address)       # hadoop cluster ui
         if opts.ganglia:
             master_group.authorize('tcp', 5080, 5080, authorized_address)
     if slave_group.rules == []:  # Group was just now created
@@ -595,12 +597,12 @@ def launch_cluster(conn, opts, cluster_name):
                                   src_group=slave_group)
             slave_group.authorize(ip_protocol='udp', from_port=0, to_port=65535,
                                   src_group=slave_group)
-        slave_group.authorize('tcp', 22, 22, authorized_address)
+        slave_group.authorize('tcp', 22, 22, , src_group=ssh_string_group)
         slave_group.authorize('tcp', 8080, 8081, authorized_address)
         slave_group.authorize('tcp', 50060, 50060, authorized_address)
         slave_group.authorize('tcp', 50075, 50075, authorized_address)
-        slave_group.authorize('tcp', 60060, 60060, authorized_address)
-        slave_group.authorize('tcp', 60075, 60075, authorized_address)
+        # slave_group.authorize('tcp', 60060, 60060, authorized_address)
+        # slave_group.authorize('tcp', 60075, 60075, authorized_address)
 
     # Check if instances are already running in our groups
     existing_masters, existing_slaves = get_existing_cluster(conn, opts, cluster_name,
