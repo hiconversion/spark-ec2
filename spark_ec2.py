@@ -597,7 +597,7 @@ def launch_cluster(conn, opts, cluster_name):
                                   src_group=slave_group)
             slave_group.authorize(ip_protocol='udp', from_port=0, to_port=65535,
                                   src_group=slave_group)
-        slave_group.authorize('tcp', 22, 22, , src_group=ssh_string_group)
+        slave_group.authorize('tcp', 22, 22, src_group=ssh_string_group)
         slave_group.authorize('tcp', 8080, 8081, authorized_address)
         slave_group.authorize('tcp', 50060, 50060, authorized_address)
         slave_group.authorize('tcp', 50075, 50075, authorized_address)
