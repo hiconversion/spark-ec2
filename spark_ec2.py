@@ -549,18 +549,18 @@ def launch_cluster(conn, opts, cluster_name):
             master_group.authorize(src_group=master_group)
             master_group.authorize(src_group=slave_group)
         else:
-            master_group.authorize(ip_protocol='icmp', from_port=-1, to_port=-1,
-                                   src_group=master_group)
+            # master_group.authorize(ip_protocol='icmp', from_port=-1, to_port=-1,
+            #                        src_group=master_group)
             master_group.authorize(ip_protocol='tcp', from_port=0, to_port=65535,
                                    src_group=master_group)
-            master_group.authorize(ip_protocol='udp', from_port=0, to_port=65535,
-                                   src_group=master_group)
-            master_group.authorize(ip_protocol='icmp', from_port=-1, to_port=-1,
-                                   src_group=slave_group)
+            # master_group.authorize(ip_protocol='udp', from_port=0, to_port=65535,
+            #                        src_group=master_group)
+            # master_group.authorize(ip_protocol='icmp', from_port=-1, to_port=-1,
+            #                        src_group=slave_group)
             master_group.authorize(ip_protocol='tcp', from_port=0, to_port=65535,
                                    src_group=slave_group)
-            master_group.authorize(ip_protocol='udp', from_port=0, to_port=65535,
-                                   src_group=slave_group)
+            # master_group.authorize(ip_protocol='udp', from_port=0, to_port=65535,
+            #                        src_group=slave_group)
         master_group.authorize(ip_protocol='tcp', from_port=22, to_port=22, src_group=ssh_strict_group)
         master_group.authorize('tcp', 8080, 8081, authorized_address)       # spark master,worker ui
         master_group.authorize('tcp', 18080, 18080, authorized_address)     # spark history ui
@@ -587,18 +587,18 @@ def launch_cluster(conn, opts, cluster_name):
             slave_group.authorize(src_group=master_group)
             slave_group.authorize(src_group=slave_group)
         else:
-            slave_group.authorize(ip_protocol='icmp', from_port=-1, to_port=-1,
-                                  src_group=master_group)
+            # slave_group.authorize(ip_protocol='icmp', from_port=-1, to_port=-1,
+            #                       src_group=master_group)
             slave_group.authorize(ip_protocol='tcp', from_port=0, to_port=65535,
                                   src_group=master_group)
-            slave_group.authorize(ip_protocol='udp', from_port=0, to_port=65535,
-                                  src_group=master_group)
-            slave_group.authorize(ip_protocol='icmp', from_port=-1, to_port=-1,
-                                  src_group=slave_group)
+            # slave_group.authorize(ip_protocol='udp', from_port=0, to_port=65535,
+            #                       src_group=master_group)
+            # slave_group.authorize(ip_protocol='icmp', from_port=-1, to_port=-1,
+            #                       src_group=slave_group)
             slave_group.authorize(ip_protocol='tcp', from_port=0, to_port=65535,
                                   src_group=slave_group)
-            slave_group.authorize(ip_protocol='udp', from_port=0, to_port=65535,
-                                  src_group=slave_group)
+            # slave_group.authorize(ip_protocol='udp', from_port=0, to_port=65535,
+            #                       src_group=slave_group)
         slave_group.authorize(ip_protocol='tcp', from_port=22, to_port=22, src_group=ssh_strict_group)
         slave_group.authorize('tcp', 8080, 8081, authorized_address)
         slave_group.authorize('tcp', 50060, 50060, authorized_address)
@@ -624,6 +624,11 @@ def launch_cluster(conn, opts, cluster_name):
         additional_group_ids = [sg.id
                                 for sg in conn.get_all_security_groups()
                                 if opts.additional_security_group in (sg.name, sg.id)]
+
+    # our custom security group
+    print("Adding custom security group...")
+    additional_group_ids.append(ssh_strict_group.id)
+
     print("Launching instances...")
 
     try:
