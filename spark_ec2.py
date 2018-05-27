@@ -540,7 +540,9 @@ def launch_cluster(conn, opts, cluster_name):
     master_group = get_or_make_group(conn, cluster_name + "-master", opts.vpc_id)
     slave_group = get_or_make_group(conn, cluster_name + "-slaves", opts.vpc_id)
     authorized_address = opts.authorized_address
-    ssh_string_group = 'ssh-strict-sg';
+
+    ssh_strict_group_name = 'ssh-strict-sg';
+    ssh_strict_group = get_or_make_group(conn, ssh_strict_group_name, opts.vpc_id)
 
     if master_group.rules == []:  # Group was just now created
         if opts.vpc_id is None:
@@ -559,7 +561,7 @@ def launch_cluster(conn, opts, cluster_name):
                                    src_group=slave_group)
             master_group.authorize(ip_protocol='udp', from_port=0, to_port=65535,
                                    src_group=slave_group)
-        master_group.authorize('tcp', 22, 22, src_group=ssh_string_group)
+        master_group.authorize(ip_protocol='tcp', from_port=22, to_port=22, src_group=ssh_strict_group)
         master_group.authorize('tcp', 8080, 8081, authorized_address)       # spark master,worker ui
         master_group.authorize('tcp', 18080, 18080, authorized_address)     # spark history ui
         master_group.authorize('tcp', 19999, 19999, authorized_address)     # tachyon
@@ -597,7 +599,7 @@ def launch_cluster(conn, opts, cluster_name):
                                   src_group=slave_group)
             slave_group.authorize(ip_protocol='udp', from_port=0, to_port=65535,
                                   src_group=slave_group)
-        slave_group.authorize('tcp', 22, 22, src_group=ssh_string_group)
+        slave_group.authorize(ip_protocol='tcp', from_port=22, to_port=22, src_group=ssh_strict_group)
         slave_group.authorize('tcp', 8080, 8081, authorized_address)
         slave_group.authorize('tcp', 50060, 50060, authorized_address)
         slave_group.authorize('tcp', 50075, 50075, authorized_address)
