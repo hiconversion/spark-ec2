@@ -35,7 +35,7 @@ case "$HADOOP_MAJOR_VERSION" in
 #    echo "Unpacking Custom Hadoop with Yarn"
     tar xvzf hadoop-*.tar.gz > /tmp/spark-ec2_hadoop.log
     rm hadoop-*.tar.gz
-    mv hadoop-2.*/ ephemeral-hdfs/
+    mv hadoop-3.*/ ephemeral-hdfs/
 
     # Have single conf dir
     rm -rf /root/ephemeral-hdfs/etc/hadoop/
