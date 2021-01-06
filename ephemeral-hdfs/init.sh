@@ -29,7 +29,7 @@ case "$HADOOP_MAJOR_VERSION" in
     ln -s /root/ephemeral-hdfs/conf /root/ephemeral-hdfs/etc/hadoop
     ;;
   yarn)
-   wget http://s3.amazonaws.com/spark-related-packages/hadoop-3.2.1.tar.gz
+   wget http://a51-resources.s3.amazonaws.com/spark/hadoop/hadoop-3.2.1.tar.gz
    echo "Unpacking Apache Hadoop with Yarn"
 #    wget http://a51-resources.s3.amazonaws.com/spark/hadoop/hadoop-cdh-prod.tar.gz
 #    echo "Unpacking Custom Hadoop with Yarn"
