@@ -17,7 +17,7 @@ case "$HADOOP_MAJOR_VERSION" in
     sed -i 's/-jvm server/-server/g' /root/ephemeral-hdfs/bin/hadoop
     cp /root/hadoop-native/* /root/ephemeral-hdfs/lib/native/
     ;;
-  2)
+  2) 
     wget http://a51-resources.s3.amazonaws.com/spark/hadoop/hadoop-cdh-prod.tar.gz
     echo "Unpacking Custom CDH Hadoop"
     tar xvzf hadoop-*.tar.gz > /tmp/spark-ec2_hadoop.log
@@ -29,8 +29,8 @@ case "$HADOOP_MAJOR_VERSION" in
     ln -s /root/ephemeral-hdfs/conf /root/ephemeral-hdfs/etc/hadoop
     ;;
   yarn)
-#   wget http://a51-resources.s3.amazonaws.com/spark/hadoop/hadoop-3.2.1.tar.gz
-#   echo "Unpacking Apache Hadoop with Yarn"
+#    wget http://s3.amazonaws.com/spark-related-packages/hadoop-2.7.3.tar.gz
+#    echo "Unpacking Apache Hadoop with Yarn"
     wget http://a51-resources.s3.amazonaws.com/spark/hadoop/hadoop-cdh-prod.tar.gz
     echo "Unpacking Custom Hadoop with Yarn"
     tar xvzf hadoop-*.tar.gz > /tmp/spark-ec2_hadoop.log
