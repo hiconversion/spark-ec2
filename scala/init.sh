@@ -14,7 +14,7 @@ if [[ "0.7.3 0.8.0 0.8.1" =~ $SPARK_VERSION ]]; then
 fi
 
 echo "Unpacking Scala"
-wget http://s3.amazonaws.com/spark-related-packages/scala-$SCALA_VERSION.tgz
+wget http://a51-resources.s3.amazonaws.com/spark/scala/scala-$SCALA_VERSION.tgz
 tar xvzf scala-*.tgz > /tmp/spark-ec2_scala.log
 rm scala-*.tgz
 mv `ls -d scala-* | grep -v ec2` scala
