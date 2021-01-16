@@ -38,9 +38,9 @@ case "$HADOOP_MAJOR_VERSION" in
     ;;
   yarn)
     echo "" >> $EPHEMERAL_HDFS/sbin/start-dfs.tmp.sh
-    echo "HDFS_NAMENODE_USER=root" >> $EPHEMERAL_HDFS/sbin/start-dfs.tmp.sh
-    echo "HDFS_DATANODE_USER=root" >> $EPHEMERAL_HDFS/sbin/start-dfs.tmp.sh
-    echo "HDFS_SECONDARYNAMENODE_USER=root" >> $EPHEMERAL_HDFS/sbin/start-dfs.tmp.sh
+    echo "export HDFS_NAMENODE_USER=root" >> $EPHEMERAL_HDFS/sbin/start-dfs.tmp.sh
+    echo "export HDFS_DATANODE_USER=root" >> $EPHEMERAL_HDFS/sbin/start-dfs.tmp.sh
+    echo "export HDFS_SECONDARYNAMENODE_USER=root" >> $EPHEMERAL_HDFS/sbin/start-dfs.tmp.sh
     echo "" >> $EPHEMERAL_HDFS/sbin/start-dfs.tmp.sh
     cat  $EPHEMERAL_HDFS/sbin/start-dfs.sh >> $EPHEMERAL_HDFS/sbin/start-dfs.tmp.sh
     rm -f $EPHEMERAL_HDFS/sbin/start-dfs.sh
