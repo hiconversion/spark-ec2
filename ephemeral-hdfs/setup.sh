@@ -36,9 +36,17 @@ case "$HADOOP_MAJOR_VERSION" in
   2)
     $EPHEMERAL_HDFS/sbin/start-dfs.sh
     ;;
-  yarn) 
+  yarn)
     $EPHEMERAL_HDFS/sbin/start-dfs.sh
     echo "Starting YARN"
+    echo "" >> $EPHEMERAL_HDFS/sbin/start-yarn.sh
+    echo "YARN_RESOURCEMANAGER_USER=root" >> $EPHEMERAL_HDFS/sbin/start-yarn.sh
+    echo "HADOOP_SECURE_DN_USER=yarn" >> $EPHEMERAL_HDFS/sbin/start-yarn.sh
+    echo "YARN_NODEMANAGER_USER=root" >> $EPHEMERAL_HDFS/sbin/start-yarn.sh
+    echo "" >> $EPHEMERAL_HDFS/sbin/stop-yarn.sh
+    echo "YARN_RESOURCEMANAGER_USER=root" >> $EPHEMERAL_HDFS/sbin/stop-yarn.sh
+    echo "HADOOP_SECURE_DN_USER=yarn" >> $EPHEMERAL_HDFS/sbin/stop-yarn.sh
+    echo "YARN_NODEMANAGER_USER=root" >> $EPHEMERAL_HDFS/sbin/stop-yarn.sh
     $EPHEMERAL_HDFS/sbin/start-yarn.sh
     ;;
   *)
