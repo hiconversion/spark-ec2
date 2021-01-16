@@ -60,10 +60,10 @@ export HADOOP_PID_DIR=/var/hadoop/ephemeral-hdfs/pids
 # export HADOOP_NICENESS=10
 
 # Set hadoop user for CDH (which doesn't allow running as root)
-export HADOOP_NAMENODE_USER=hadoop
-export HADOOP_DATANODE_USER=hadoop
-export HADOOP_SECONDARYNAMENODE_USER=hadoop
-export HADOOP_JOBTRACKER_USER=hadoop
-export HADOOP_TASKTRACKER_USER=hadoop
+export HADOOP_NAMENODE_USER=root
+export HADOOP_DATANODE_USER=root
+export HADOOP_SECONDARYNAMENODE_USER=root
+export HADOOP_JOBTRACKER_USER=root
+export HADOOP_TASKTRACKER_USER=root
 
 ulimit -n 16000
