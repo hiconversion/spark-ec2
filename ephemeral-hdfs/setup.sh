@@ -67,7 +67,7 @@ case "$HADOOP_MAJOR_VERSION" in
     cat  $EPHEMERAL_HDFS/sbin/stop-yarn.sh >> $EPHEMERAL_HDFS/sbin/stop-yarn.tmp.sh
     rm -f $EPHEMERAL_HDFS/sbin/stop-yarn.sh
     mv $EPHEMERAL_HDFS/sbin/stop-yarn.tmp.sh $EPHEMERAL_HDFS/sbin/stop-yarn.sh
-    chmod +x $EPHEMERAL_HDFS/sbin/start-yarn.sh
+    chmod +x $EPHEMERAL_HDFS/sbin/stop-yarn.sh
 
     echo "Starting YARN"
     $EPHEMERAL_HDFS/sbin/start-yarn.sh
