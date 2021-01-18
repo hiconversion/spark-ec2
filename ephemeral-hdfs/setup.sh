@@ -37,37 +37,24 @@ case "$HADOOP_MAJOR_VERSION" in
     $EPHEMERAL_HDFS/sbin/start-dfs.sh
     ;;
   yarn)
-    echo "" >> $EPHEMERAL_HDFS/sbin/start-dfs.tmp.sh
-    echo "export HDFS_NAMENODE_USER=root" >> $EPHEMERAL_HDFS/sbin/start-dfs.tmp.sh
-    echo "export HDFS_DATANODE_USER=root" >> $EPHEMERAL_HDFS/sbin/start-dfs.tmp.sh
-    echo "export HDFS_SECONDARYNAMENODE_USER=root" >> $EPHEMERAL_HDFS/sbin/start-dfs.tmp.sh
-    echo "" >> $EPHEMERAL_HDFS/sbin/start-dfs.tmp.sh
-    cat  $EPHEMERAL_HDFS/sbin/start-dfs.sh >> $EPHEMERAL_HDFS/sbin/start-dfs.tmp.sh
-    rm -f $EPHEMERAL_HDFS/sbin/start-dfs.sh
-    mv $EPHEMERAL_HDFS/sbin/start-dfs.tmp.sh $EPHEMERAL_HDFS/sbin/start-dfs.sh
-    chmod +x $EPHEMERAL_HDFS/sbin/start-dfs.sh
+
+    DFS_USER_DEFS='
+    export HDFS_NAMENODE_USER=root\
+    export HDFS_DATANODE_USER=root\
+    export HDFS_SECONDARYNAMENODE_USER=root\
+    '
+    sed -i -e "/#!/usr/bin/env bash/a $DFS_USER_DEFS" $EPHEMERAL_HDFS/sbin/start-dfs.sh
+    sed -i -e "/#!/usr/bin/env bash/a $DFS_USER_DEFS" $EPHEMERAL_HDFS/sbin/stop-dfs.sh
 
     $EPHEMERAL_HDFS/sbin/start-dfs.sh
 
-    echo "" >> $EPHEMERAL_HDFS/sbin/start-yarn.tmp.sh
-    echo "YARN_RESOURCEMANAGER_USER=root" >> $EPHEMERAL_HDFS/sbin/start-yarn.tmp.sh
-    echo "HADOOP_SECURE_DN_USER=yarn" >> $EPHEMERAL_HDFS/sbin/start-yarn.tmp.sh
-    echo "YARN_NODEMANAGER_USER=root" >> $EPHEMERAL_HDFS/sbin/start-yarn.tmp.sh
-    echo "" >> $EPHEMERAL_HDFS/sbin/start-yarn.tmp.sh
-    cat  $EPHEMERAL_HDFS/sbin/start-yarn.sh >> $EPHEMERAL_HDFS/sbin/start-yarn.tmp.sh
-    rm -f $EPHEMERAL_HDFS/sbin/start-yarn.sh
-    mv $EPHEMERAL_HDFS/sbin/start-yarn.tmp.sh $EPHEMERAL_HDFS/sbin/start-yarn.sh
-    chmod +x $EPHEMERAL_HDFS/sbin/start-yarn.sh
-
-    echo "" >> $EPHEMERAL_HDFS/sbin/stop-yarn.tmp.sh
-    echo "YARN_RESOURCEMANAGER_USER=root" >> $EPHEMERAL_HDFS/sbin/stop-yarn.tmp.sh
-    echo "HADOOP_SECURE_DN_USER=yarn" >> $EPHEMERAL_HDFS/sbin/stop-yarn.tmp.sh
-    echo "YARN_NODEMANAGER_USER=root" >> $EPHEMERAL_HDFS/sbin/stop-yarn.tmp.sh
-    echo "" >> $EPHEMERAL_HDFS/sbin/stop-yarn.tmp.sh
-    cat  $EPHEMERAL_HDFS/sbin/stop-yarn.sh >> $EPHEMERAL_HDFS/sbin/stop-yarn.tmp.sh
-    rm -f $EPHEMERAL_HDFS/sbin/stop-yarn.sh
-    mv $EPHEMERAL_HDFS/sbin/stop-yarn.tmp.sh $EPHEMERAL_HDFS/sbin/stop-yarn.sh
-    chmod +x $EPHEMERAL_HDFS/sbin/stop-yarn.sh
+    YARN_USER_DEFS='
+    YARN_RESOURCEMANAGER_USER=root\
+    HADOOP_SECURE_DN_USER=root\
+    YARN_NODEMANAGER_USER=root\
+    '
+    sed -i -e "/#!/usr/bin/env bash/a $DFS_USER_DEFS" $EPHEMERAL_HDFS/sbin/start-yarn.sh
+    sed -i -e "/#!/usr/bin/env bash/a $DFS_USER_DEFS" $EPHEMERAL_HDFS/sbin/stop-yarn.sh
 
     echo "Starting YARN"
     $EPHEMERAL_HDFS/sbin/start-yarn.sh
