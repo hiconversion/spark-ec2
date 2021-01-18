@@ -38,7 +38,7 @@ case "$HADOOP_MAJOR_VERSION" in
     ;;
   yarn)
 
-    DFS_USER_DEFS='
+    DFS_USER_DEFS='\
     export HDFS_NAMENODE_USER=root\
     export HDFS_DATANODE_USER=root\
     export HDFS_SECONDARYNAMENODE_USER=root\
@@ -48,7 +48,7 @@ case "$HADOOP_MAJOR_VERSION" in
 
     $EPHEMERAL_HDFS/sbin/start-dfs.sh
 
-    YARN_USER_DEFS='
+    YARN_USER_DEFS='\
     YARN_RESOURCEMANAGER_USER=root\
     HADOOP_SECURE_DN_USER=root\
     YARN_NODEMANAGER_USER=root\
