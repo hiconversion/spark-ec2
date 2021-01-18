@@ -46,7 +46,7 @@ export HDFS_SECONDARYNAMENODE_USER=root\
     sed -i -e "/\/usr\/bin\/env bash/a $DFS_USER_DEFS" $EPHEMERAL_HDFS/sbin/start-dfs.sh
     sed -i -e "/\/usr\/bin\/env bash/a $DFS_USER_DEFS" $EPHEMERAL_HDFS/sbin/stop-dfs.sh
 
-    $EPHEMERAL_HDFS/sbin/start-dfs.sh --config $HADOOP_CONF_DIR
+    $EPHEMERAL_HDFS/sbin/start-dfs.sh --config $EPHEMERAL_HDFS/conf
 
     YARN_USER_DEFS='\
 YARN_RESOURCEMANAGER_USER=root\
@@ -57,7 +57,7 @@ YARN_NODEMANAGER_USER=root\
     sed -i -e "/\/usr\/bin\/env bash/a $YARN_USER_DEFS" $EPHEMERAL_HDFS/sbin/stop-yarn.sh
 
     echo "Starting YARN"
-    $EPHEMERAL_HDFS/sbin/start-yarn.sh --config $HADOOP_CONF_DIR
+    $EPHEMERAL_HDFS/sbin/start-yarn.sh --config $EPHEMERAL_HDFS/conf
     ;;
   *)
      echo "ERROR: Unknown Hadoop version"
