@@ -128,7 +128,7 @@ DEFAULT_SPARK_GITHUB_REPO = "https://github.com/apache/spark"
 
 # Default location to get the spark-ec2 scripts (and ami-list) from
 DEFAULT_SPARK_EC2_GITHUB_REPO = "https://github.com/amplab/spark-ec2"
-DEFAULT_SPARK_EC2_BRANCH = "branch-2.0"
+DEFAULT_SPARK_EC2_BRANCH = "branch-2.1"
 
 
 def setup_external_libs(libs):
