@@ -6,8 +6,8 @@ if [[ "0.7.3 0.8.0 0.8.1" =~ $SPARK_VERSION ]]; then
   BIN_FOLDER="/root/spark/bin"
 fi
 
-# Copy the slaves to spark conf
-cp /root/spark-ec2/slaves /root/spark/conf/
+# Copy the workers to spark conf
+cp /root/spark-ec2/workers /root/spark/conf/
 /root/spark-ec2/copy-dir /root/spark/conf
 
 # Set cluster-url to standalone master
