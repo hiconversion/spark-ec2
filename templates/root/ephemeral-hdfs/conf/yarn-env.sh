@@ -18,7 +18,7 @@ export HADOOP_YARN_USER=${HADOOP_YARN_USER:-yarn}
 
 # resolve links - $0 may be a softlink
 #export YARN_CONF_DIR="${YARN_CONF_DIR:-$HADOOP_YARN_HOME/conf}"
-export YARN_CONF_DIR="/root/ephemeral-hdfs/conf"
+export HADOOP_CONF_DIR="/root/ephemeral-hdfs/conf"
 
 # some Java parameters
 # export JAVA_HOME=/home/y/libexec/jdk1.6.0/
@@ -26,7 +26,7 @@ export YARN_CONF_DIR="/root/ephemeral-hdfs/conf"
 #  #echo "run java in $JAVA_HOME"
 #  JAVA_HOME=$JAVA_HOME
 #fi
-#  
+#
 #if [ "$JAVA_HOME" = "" ]; then
 #  echo "Error: JAVA_HOME is not set."
 #  exit 1
@@ -35,7 +35,7 @@ export YARN_CONF_DIR="/root/ephemeral-hdfs/conf"
 export JAVA_HOME={{java_home}}
 
 JAVA=$JAVA_HOME/bin/java
-JAVA_HEAP_MAX=-Xmx1000m 
+JAVA_HEAP_MAX=-Xmx1000m
 
 # For setting YARN specific HEAP sizes please use this
 # Parameter and set appropriately
@@ -95,10 +95,10 @@ IFS=
 #if [ "$YARN_LOG_DIR" = "" ]; then
 #  YARN_LOG_DIR="$HADOOP_YARN_HOME/logs"
 #fi
-export YARN_LOG_DIR=/mnt/ephemeral-hdfs/logs
+export HADOOP_LOG_DIR=/mnt/ephemeral-hdfs/logs
 
-if [ "$YARN_LOGFILE" = "" ]; then
-  YARN_LOGFILE='yarn.log'
+if [ "$HADOOP_LOGFILE" = "" ]; then
+  HADOOP_LOGFILE='yarn.log'
 fi
 
 # default policy file for service-level authorization
@@ -110,17 +110,17 @@ fi
 unset IFS
 
 
-YARN_OPTS="$YARN_OPTS -Dhadoop.log.dir=$YARN_LOG_DIR"
-YARN_OPTS="$YARN_OPTS -Dyarn.log.dir=$YARN_LOG_DIR"
-YARN_OPTS="$YARN_OPTS -Dhadoop.log.file=$YARN_LOGFILE"
-YARN_OPTS="$YARN_OPTS -Dyarn.log.file=$YARN_LOGFILE"
-YARN_OPTS="$YARN_OPTS -Dyarn.home.dir=$YARN_COMMON_HOME"
-YARN_OPTS="$YARN_OPTS -Dyarn.id.str=$YARN_IDENT_STRING"
-YARN_OPTS="$YARN_OPTS -Dhadoop.root.logger=${YARN_ROOT_LOGGER:-INFO,console}"
-YARN_OPTS="$YARN_OPTS -Dyarn.root.logger=${YARN_ROOT_LOGGER:-INFO,console}"
+HADOOP_OPTS="$HADOOP_OPTS -Dhadoop.log.dir=$HADOOP_LOG_DIR"
+HADOOP_OPTS="$HADOOP_OPTS -Dyarn.log.dir=$HADOOP_LOG_DIR"
+HADOOP_OPTS="$HADOOP_OPTS -Dhadoop.log.file=$HADOOP_LOGFILE"
+HADOOP_OPTS="$HADOOP_OPTS -Dyarn.log.file=$HADOOP_LOGFILE"
+HADOOP_OPTS="$HADOOP_OPTS -Dyarn.home.dir=$YARN_COMMON_HOME"
+HADOOP_OPTS="$HADOOP_OPTS -Dyarn.id.str=$YARN_IDENT_STRING"
+HADOOP_OPTS="$HADOOP_OPTS -Dhadoop.root.logger=${YARN_ROOT_LOGGER:-INFO,console}"
+HADOOP_OPTS="$HADOOP_OPTS -Dyarn.root.logger=${YARN_ROOT_LOGGER:-INFO,console}"
 if [ "x$JAVA_LIBRARY_PATH" != "x" ]; then
-  YARN_OPTS="$YARN_OPTS -Djava.library.path=$JAVA_LIBRARY_PATH"
-fi  
-YARN_OPTS="$YARN_OPTS -Dyarn.policy.file=$YARN_POLICYFILE"
+  HADOOP_OPTS="$HADOOP_OPTS -Djava.library.path=$JAVA_LIBRARY_PATH"
+fi
+HADOOP_OPTS="$HADOOP_OPTS -Dyarn.policy.file=$YARN_POLICYFILE"
 
 
