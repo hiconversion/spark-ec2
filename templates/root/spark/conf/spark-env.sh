@@ -22,7 +22,7 @@ wget -q -O - http://169.254.169.254/latest/meta-data/public-hostname ||\
 wget -q -O - http://169.254.169.254/latest/meta-data/local-ipv4`
 
 # Used for YARN model
-export YARN_CONF_DIR="/root/ephemeral-hdfs/conf"
+export HADOOP_CONF_DIR="/root/ephemeral-hdfs/conf"
 
 # Set a high ulimit for large shuffles, only root can do this
 if [ $(id -u) == "0" ]
