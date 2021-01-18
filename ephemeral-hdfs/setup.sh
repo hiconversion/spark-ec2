@@ -23,7 +23,7 @@ if [ -f "$NAMENODE_DIR/current/VERSION" ] && [ -f "$NAMENODE_DIR/current/fsimage
   echo "Hadoop namenode appears to be formatted: skipping"
 else
   echo "Formatting ephemeral HDFS namenode..."
-  $EPHEMERAL_HDFS/bin/hadoop namenode -format
+  $EPHEMERAL_HDFS/bin/hdfs namenode -format
 fi
 
 echo "Starting ephemeral HDFS..."
@@ -39,25 +39,25 @@ case "$HADOOP_MAJOR_VERSION" in
   yarn)
 
     DFS_USER_DEFS='\
-    export HDFS_NAMENODE_USER=root\
-    export HDFS_DATANODE_USER=root\
-    export HDFS_SECONDARYNAMENODE_USER=root\
-    '
+export HDFS_NAMENODE_USER=root\
+export HDFS_DATANODE_USER=root\
+export HDFS_SECONDARYNAMENODE_USER=root\
+'
     sed -i -e "/\/usr\/bin\/env bash/a $DFS_USER_DEFS" $EPHEMERAL_HDFS/sbin/start-dfs.sh
     sed -i -e "/\/usr\/bin\/env bash/a $DFS_USER_DEFS" $EPHEMERAL_HDFS/sbin/stop-dfs.sh
 
-    $EPHEMERAL_HDFS/sbin/start-dfs.sh
+    $EPHEMERAL_HDFS/sbin/start-dfs.sh --config $HADOOP_CONF_DIR
 
     YARN_USER_DEFS='\
-    YARN_RESOURCEMANAGER_USER=root\
-    HADOOP_SECURE_DN_USER=root\
-    YARN_NODEMANAGER_USER=root\
-    '
+YARN_RESOURCEMANAGER_USER=root\
+HADOOP_SECURE_DN_USER=root\
+YARN_NODEMANAGER_USER=root\
+'
     sed -i -e "/\/usr\/bin\/env bash/a $YARN_USER_DEFS" $EPHEMERAL_HDFS/sbin/start-yarn.sh
     sed -i -e "/\/usr\/bin\/env bash/a $YARN_USER_DEFS" $EPHEMERAL_HDFS/sbin/stop-yarn.sh
 
     echo "Starting YARN"
-    $EPHEMERAL_HDFS/sbin/start-yarn.sh
+    $EPHEMERAL_HDFS/sbin/start-yarn.sh --config $HADOOP_CONF_DIR
     ;;
   *)
      echo "ERROR: Unknown Hadoop version"
