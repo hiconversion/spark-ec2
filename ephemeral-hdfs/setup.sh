@@ -43,8 +43,8 @@ case "$HADOOP_MAJOR_VERSION" in
     export HDFS_DATANODE_USER=root\
     export HDFS_SECONDARYNAMENODE_USER=root\
     '
-    sed -i -e "/#!/usr/bin/env bash/a $DFS_USER_DEFS" $EPHEMERAL_HDFS/sbin/start-dfs.sh
-    sed -i -e "/#!/usr/bin/env bash/a $DFS_USER_DEFS" $EPHEMERAL_HDFS/sbin/stop-dfs.sh
+    sed -i -e "/\/usr\/bin\/env bash/a $DFS_USER_DEFS" $EPHEMERAL_HDFS/sbin/start-dfs.sh
+    sed -i -e "/\/usr\/bin\/env bash/a $DFS_USER_DEFS" $EPHEMERAL_HDFS/sbin/stop-dfs.sh
 
     $EPHEMERAL_HDFS/sbin/start-dfs.sh
 
@@ -53,8 +53,8 @@ case "$HADOOP_MAJOR_VERSION" in
     HADOOP_SECURE_DN_USER=root\
     YARN_NODEMANAGER_USER=root\
     '
-    sed -i -e "/#!/usr/bin/env bash/a $DFS_USER_DEFS" $EPHEMERAL_HDFS/sbin/start-yarn.sh
-    sed -i -e "/#!/usr/bin/env bash/a $DFS_USER_DEFS" $EPHEMERAL_HDFS/sbin/stop-yarn.sh
+    sed -i -e "/\/usr\/bin\/env bash/a $YARN_USER_DEFS" $EPHEMERAL_HDFS/sbin/start-yarn.sh
+    sed -i -e "/\/usr\/bin\/env bash/a $YARN_USER_DEFS" $EPHEMERAL_HDFS/sbin/stop-yarn.sh
 
     echo "Starting YARN"
     $EPHEMERAL_HDFS/sbin/start-yarn.sh
