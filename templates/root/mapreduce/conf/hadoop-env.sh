@@ -40,8 +40,8 @@ export HADOOP_SSH_OPTS="-o StrictHostKeyChecking=no -o ConnectTimeout=5"
 # export HADOOP_LOG_DIR=${HADOOP_HOME}/logs
 export HADOOP_LOG_DIR=/mnt/mapreduce/logs
 
-# File naming remote slave hosts.  $HADOOP_HOME/conf/workers by default.
-# export HADOOP_SLAVES=${HADOOP_HOME}/conf/workers
+# File naming remote slave hosts.  $HADOOP_HOME/conf/slaves by default.
+# export HADOOP_SLAVES=${HADOOP_HOME}/conf/slaves
 
 # host:path where hadoop code should be rsync'd from.  Unset by default.
 # export HADOOP_MASTER=master:/home/$USER/src/hadoop
