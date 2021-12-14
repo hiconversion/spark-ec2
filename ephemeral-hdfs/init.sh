@@ -32,7 +32,7 @@ case "$HADOOP_MAJOR_VERSION" in
 #    wget http://s3.amazonaws.com/spark-related-packages/hadoop-2.7.3.tar.gz
 #    echo "Unpacking Apache Hadoop with Yarn"
 #    wget http://a51-resources.s3.amazonaws.com/spark/hadoop/hadoop-cdh-prod.tar.gz
-    wget http://a51-resources.s3.amazonaws.com/spark/hadoop/hadoop-3.3.0.tar.gz
+    wget http://a51-resources.s3.amazonaws.com/spark/hadoop/hadoop-3.3.1.tar.gz
     echo "Unpacking Custom Hadoop with Yarn"
     tar xvzf hadoop-*.tar.gz > /tmp/spark-ec2_hadoop.log
     rm hadoop-*.tar.gz
