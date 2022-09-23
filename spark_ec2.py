@@ -103,7 +103,9 @@ VALID_SPARK_VERSIONS = set([
     "3.0.2",
     "3.1.1",
     "3.2.0",
-    "3.2.1"
+    "3.2.1",
+    "3.2.2",
+    "3.3.0"
 ])
 
 SPARK_TACHYON_MAP = {
@@ -513,6 +515,9 @@ EC2_INSTANCE_TYPES = {
     "t2.small":     "hvm",
     "t2.medium":    "hvm",
     "t2.large":     "hvm",
+    "t3.large":     "hvm",
+    "t3.xlarge":    "hvm",
+    "t3.2xlarge":   "hvm",
     "x1.16xlarge":  "hvm",
     "x1.32xlarge":  "hvm"
 }
@@ -1129,6 +1134,9 @@ def get_num_disks(instance_type):
         "t2.small":     0,
         "t2.medium":    0,
         "t2.large":     0,
+        "t3.large":     0,
+        "t3.xlarge":    0,
+        "t3.2xlarge":   0,
         "x1.16xlarge":  1,
         "x1.32xlarge":  2,
     }
