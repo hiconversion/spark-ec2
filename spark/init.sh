@@ -28,6 +28,11 @@ else
   # replaced with self-staged version
   # wget http://s3.amazonaws.com/spark-related-packages/spark-$SPARK_VERSION-bin-hadoop2.6.tgz
   wget https://a51-resources.s3.amazonaws.com/spark/spark-$SPARK_VERSION-bin-hadoop3.2.tgz
+  EXITVAL=$?
+  if [[ $EXITVAL -ne 0 ]]; then
+    # try different filename format
+    wget https://a51-resources.s3.amazonaws.com/spark/spark-$SPARK_VERSION-bin-hadoop3.tgz
+  fi
 
   echo "Unpacking Spark"
   tar xvzf spark-*.tgz > /tmp/spark-ec2_spark.log
